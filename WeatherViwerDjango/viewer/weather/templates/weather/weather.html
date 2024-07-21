@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+</head>
+<body>
+    <h1>Weather Forecast</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Forecast</button>
+    </form>
+
+    {% if forecast %}
+        <h2>Forecast for {{ form.cleaned_data.city }}</h2>
+        <ul>
+            {% for item in forecast.list %}
+                <li>{{ item.dt_txt }}: {{ item.main.temp }}°C, {{ item.weather.0.description }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
